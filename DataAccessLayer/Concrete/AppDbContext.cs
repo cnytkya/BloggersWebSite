@@ -15,7 +15,7 @@ namespace DataAccessLayer.Concrete
 			optionsBuilder.UseSqlServer("server=(localdb)\\MSSQLLocalDb;Database=BloggersWebSite;Trusted_Connection=True;TrustServerCertificate=True");
 		}
 
-		public DbSet<About> MyProperty { get; set; }
+		public DbSet<About> Abouts { get; set; }
 		public DbSet<Blog> Blogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Comment> Comments { get; set; }
