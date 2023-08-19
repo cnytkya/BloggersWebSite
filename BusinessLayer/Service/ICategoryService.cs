@@ -13,7 +13,7 @@ namespace BusinessLayer.Service
 		void CategoryDelete(Category category);
 		void CategoryUpdate(Category category);
 		
-		List<Category> GetAllList();
+		List<Category> GetList();
 		Category GetById(int id);
 	}
 }

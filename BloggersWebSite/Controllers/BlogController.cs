@@ -12,5 +12,11 @@ namespace BloggersWebSite.Controllers
 			var entity = bm.GetBlogsWithCategories();
 			return View(entity);
 		}
+		
+		public IActionResult BlogReadAll(int id)
+		{
+			var entity = bm.GetBlogById(id);
+			return View(entity);
+		}
 	}
 }

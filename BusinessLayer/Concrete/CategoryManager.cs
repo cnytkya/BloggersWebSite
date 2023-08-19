@@ -31,7 +31,7 @@ namespace BusinessLayer.Concrete
 			_categoryDal.Update(category);
 		}
 
-		public List<Category> GetAllList()
+		public List<Category> GetList()
 		{
 			return _categoryDal.GetListAll();
 		}
