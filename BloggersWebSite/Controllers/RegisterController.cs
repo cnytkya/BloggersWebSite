@@ -3,11 +3,13 @@ using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggersWebSite.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     { 
         WriterManager wm = new WriterManager(new EfWritergRepository());
