@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessLayer.Service
 {
-	public interface IAboutService 
+	public interface IAboutService : IGenericService<About>
 	{
-		List<About> GetList();
 	}
 }

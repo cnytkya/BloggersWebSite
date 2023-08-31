@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Blog>
+
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Yazarın İçerikleri</h1>
+<table class="table table-bordered">
+   <tr>
+       <th>BlogId</th>
+       <th>Başlık</th>
+       <th>Oluşturma Tarihi</th>
+       <th>Kategori</th>
+       <th>Yazar</th>
+       @*<th>Resim</th>*@
+       <th>Durum</th>
+       <th>Güncelle</th>
+       <th>Sil</th>
+   </tr>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <th>@item.BlogId</th>
+            <td>@item.BlogTitle</td>
+            <td>@(((DateTime)item.CreatedDate).ToString("dd-MMMM-yyyy"))</td>
+            <td>@item.Category.CategoryName</td>
+            <td>@item.Writer</td>
+            @*<td>@item.BlogImage</td>*@
+            <td>
+                @if (item.BlogStatus)
+                {
+                    <span class="text-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="text-danger">Pasif</span>
+                }
+            </td>
+            <td><a href="/Blog/Update/@item.BlogId" class="btn btn-outline-success">Güncelle</a></td>
+            <td><a href="/Blog/Delete/@item.BlogId" class="btn btn-outline-danger">Sil</a></td>
+            
+
+        </tr>
+    }
+</table>
+<a href="/Blog/Create" class="btn btn-primary">Yeni Blog Oluştur</a>

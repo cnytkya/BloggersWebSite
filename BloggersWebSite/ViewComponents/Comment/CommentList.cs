@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace BloggersWebSite.ViewComponents
+namespace BloggersWebSite.ViewComponents.Comment
 {
-    public class CommentList :  ViewComponent
+    public class CommentList : ViewComponent
     {
         public IViewComponentResult Invoke()
         {

@@ -11,26 +11,11 @@ namespace BusinessLayer.Concrete
 {
 	public class BlogManager : IBlogService
 	{
-		IBlogDal _blogDal;
+		IBlogyDal _blogDal;
 
-		public BlogManager(IBlogDal blogDal)
+		public BlogManager(IBlogyDal blogDal)
 		{
 			_blogDal = blogDal;
-		}
-
-		public void BlogAdd(Blog blog)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void BlogDelete(Blog blog)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void BlogUpdate(Blog blog)
-		{
-			throw new NotImplementedException();
 		}
 
 		public List<Blog> GetList()
@@ -46,7 +31,7 @@ namespace BusinessLayer.Concrete
 
 		public Blog GetById(int id)
 		{
-			throw new NotImplementedException();
+			return _blogDal.GetById(id);
 		}
 
 		public List<Blog> GetBlogById(int id) 
@@ -54,14 +39,35 @@ namespace BusinessLayer.Concrete
 			return _blogDal.GetListAll(x=> x.BlogId == id);
 		}
 
-        public List<Blog> GetBlogsWithCategories()
+        public List<Blog> GetBlogsWithCategory()
         {
-            return _blogDal.GetBlogsWithCategories();
+            return _blogDal.GetBlogsWithCategory();
+        }
+
+		public List<Blog> GetListWithCategoryByWriterBM(int id)
+		{
+			return _blogDal.GetListWithCategoryByWriter(id);
+
         }
 
 		public List<Blog> GetBlogsListByWriter(int id)
 		{
 			return _blogDal.GetListAll(x=> x.WriterId == id);
 		}
-	}
+
+        public void Add(Blog t)
+        {
+            _blogDal.Insert(t);
+        }
+
+        public void Delete(Blog t)
+        {
+            _blogDal.Delete(t);
+        }
+
+        public void Update(Blog t)
+        {
+            _blogDal.Update(t);
+        }
+    }
 }

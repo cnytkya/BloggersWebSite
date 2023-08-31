@@ -20,5 +20,11 @@ namespace BloggersWebSite.Controllers
         {
             return PartialView();
         }
+
+        [AllowAnonymous]
+        public PartialViewResult WriterFooterPartial()
+        {
+            return PartialView();
+        }
     }
 }
