@@ -1,13 +1,11 @@
 ﻿using BusinessLayer.Service;
 using DataAccessLayer.Abstract;
-using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
-using System;
 using System.Collections.Generic;
 
 namespace BusinessLayer.Concrete
 {
-	public class CategoryManager : ICategoryService
+    public class CategoryManager : ICategoryService
 	{
 		ICategoryDal _categoryDal;
 

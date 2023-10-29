@@ -1,11 +1,5 @@
 ﻿using EntityLayer.Concrete;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.ValidationRules
 {
@@ -18,6 +12,8 @@ namespace BusinessLayer.ValidationRules
             RuleFor(x => x.WriterPassword).NotEmpty().WithMessage("Şifre boş geçilemez");
             RuleFor(x => x.WriterName).MinimumLength(2).WithMessage("Lütfen en az 2 karakter girişi apın");
             RuleFor(x => x.WriterName).MaximumLength(50).WithMessage("En fazla 50 karakter girebilirsiniz");
+            RuleFor(x => x.Location).MaximumLength(30).WithMessage("En fazla 30 karakter girebilirsiniz");
+            RuleFor(x => x.Location).MinimumLength(2).WithMessage("En az 2 karakter girebilirsiniz");
         }
     }
 }

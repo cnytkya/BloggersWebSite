@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -12,11 +13,13 @@ using System.Linq;
 
 namespace BloggersWebSite.Controllers
 {
-    [AllowAnonymous]
     public class BlogController : Controller
 	{
-		BlogManager bm = new BlogManager(new EfBlogRepository());
+        AppDbContext dc = new AppDbContext();
+        BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+
+		[AllowAnonymous]
         public IActionResult Index()
 		{
 			var entity = bm.GetBlogsWithCategory();
@@ -32,14 +35,15 @@ namespace BloggersWebSite.Controllers
 
 		public IActionResult BlogListByWriter()
 		{
-			var entity =  bm.GetListWithCategoryByWriterBM(2);
+			var usermail = User.Identity.Name;
+			var writerdId = dc.Writers.Where(x=>x.WriterMail == usermail).Select(y=>y.WriterId).FirstOrDefault();
+            var entity =  bm.GetListWithCategoryByWriterBM(writerdId);
 			return View(entity);
 		}
 
 		[HttpGet]
 		public IActionResult Create()
 		{
-			
 			List<SelectListItem> categories = (from x in cm.GetList()
 											   select new SelectListItem
 											   {
@@ -53,13 +57,16 @@ namespace BloggersWebSite.Controllers
 		[HttpPost]
 		public IActionResult Create(Blog blog)
 		{
-			BlogValidator bv = new BlogValidator();
+            var usermail = User.Identity.Name;
+            var writerdId = dc.Writers.Where(x => x.WriterMail == usermail).Select(y => y.WriterId).FirstOrDefault();
+
+            BlogValidator bv = new BlogValidator();
 			ValidationResult validationResult = bv.Validate(blog);
 			if (validationResult.IsValid)
 			{
 				blog.BlogStatus = true;
 				blog.CreatedDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-				blog.WriterId = 1;
+				blog.WriterId = writerdId;
 				bm.Add(blog);
 				return RedirectToAction("BlogListByWriter", "Blog");			
 			}

@@ -1,18 +1,19 @@
 ﻿@using EntityLayer.Concrete;
 @model List<Category>
+
+
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Project Status</h4>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th> Id </th>
                                 <th> Kategori Adı </th>
                                 <th> Durum </th>
-                                <th> İşlemler </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,25 +22,13 @@
                                 <tr>
                                     <td> @blog.CategoryId </td>
                                     <td> @blog.CategoryName </td>
-                                    <td>
-                                        @if (blog.CategoryStatus)
-                                        {
-                                            <span class="badge badge-gradient-success">Aktif</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge badge-gradient-danger">Pasif</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+
+                                    <td id="status_@blog.CategoryId">
+                                        <span class="badge badge-gradient-success">Aktif</span>
+                                        <span class="badge badge-gradient-danger">Pasif</span>
                                     </td>
                                 </tr>
                             }
-
-
                         </tbody>
                     </table>
                 </div>

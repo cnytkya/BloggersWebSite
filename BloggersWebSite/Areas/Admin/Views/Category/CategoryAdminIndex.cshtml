@@ -1,0 +1,87 @@
+﻿@*@model IEnumerable<EntityLayer.Concrete.Category>*@
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<EntityLayer.Concrete.Category>
+
+@{
+    ViewData["Title"] = "CategoryAdminIndex";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<style>
+    .btn-success:hover {
+        background-color: darkturquoise !important; /* Yeni hover rengi */
+        border-color: #28a745 !important; /* Kenar rengi */
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Kategori Yönetimi</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th> Id </th>
+                                <th> Kategori Adı </th>
+                                <th> Durum </th>
+                                <th> İşlemler </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var category in Model)
+                            {
+                                <tr>
+                                    <td> @category.CategoryId </td>
+                                    <td> @category.CategoryName </td>
+
+                                    <td id="status_@category.CategoryId">
+                                        @if (category.CategoryStatus)
+                                        {
+                                            <span class="badge badge-gradient-success">Aktif</span>
+                                            <a href="/Admin/Category/CategoryDelete/@category.CategoryId" id="DeleteBtn" onclick="return confirm('Silmek istediğinize emin misiniz')" class="btn btn-success">Pasif Yap</a>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-gradient-danger">Pasif</span>
+                                            <button class="btn btn-sm btn-danger" onclick="toggleStatus(@category.CategoryId, @category.CategoryStatus)">Aktif Yap</button>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Category", new { id = category.CategoryId })" class="btn btn-info">Güncelle</a>
+                                        <a href="@Url.Action("Delete", "Category", new { id = category.CategoryId })" class="btn btn-danger">Sil</a>
+                                    </td>
+
+
+                                </tr>
+                            }
+
+                        </tbody>
+                        <br />
+
+                    </table>
+                    <a href="@Url.Action("Create", "Category")" class="btn btn-success">Kategori Ekle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.querySelector('.btn-success');
+        btn.addEventListener('mouseover', function () {
+            btn.style.backgroundColor = '#28a745';
+            btn.style.borderColor = '#28a745';
+        });
+        btn.addEventListener('mouseout', function () {
+            btn.style.backgroundColor = '';
+            btn.style.borderColor = '';
+        });
+    });
+</script>
+<br />
+@Html.PagedListPager((IPagedList)Model, paged => Url.Action("CategoryAdminIndex", new { paged }))
+

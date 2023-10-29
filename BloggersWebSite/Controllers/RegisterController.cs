@@ -4,7 +4,6 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggersWebSite.Controllers
@@ -13,6 +12,7 @@ namespace BloggersWebSite.Controllers
     public class RegisterController : Controller
     { 
         WriterManager wm = new WriterManager(new EfWritergRepository());
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -28,7 +28,7 @@ namespace BloggersWebSite.Controllers
             {
                 writer.WriterStatus = true;
                 writer.WriterAbout = "Deneme Test";
-                wm.WriterAdd(writer);
+                wm.Add(writer);
                 return RedirectToAction("Index", "Blog");
             }
             else

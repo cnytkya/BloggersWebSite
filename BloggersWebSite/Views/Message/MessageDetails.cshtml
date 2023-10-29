@@ -1,0 +1,37 @@
+﻿@model EntityLayer.Concrete.Message2
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Mesaj Detayları</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MessageId" class="control-label"></label>
+                <input asp-for="MessageId" class="form-control" />
+                <span asp-validation-for="MessageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageDetails" class="control-label">Mesaj Detayları</label>
+                @Html.TextAreaFor(x=>x.MessageDetails,15,10, new{@class = "form-control"})
+                <span asp-validation-for="MessageDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label">Oluşturulma Tarihi</label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Message" asp-action="InBox" class="btn btn-success">Mesajlara Geri Dön</a>
+</div>
+
