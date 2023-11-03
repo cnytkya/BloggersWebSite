@@ -14,7 +14,7 @@ namespace BloggersWebSite.Areas.Admin.Controllers
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
         public IActionResult CategoryAdminIndex(int paged=1)
         {
-            var values = cm.GetList().ToPagedList(paged, 3);
+            var values = cm.GetList().ToPagedList(paged,4);
             return View(values);
         }
 
@@ -33,7 +33,7 @@ namespace BloggersWebSite.Areas.Admin.Controllers
             {
                 category.CategoryStatus = true;
                 cm.Add(category);
-                return RedirectToAction("Index", "Category");
+                return RedirectToAction("CategoryAdminIndex", "Category");
             }
             else
             {
@@ -45,11 +45,48 @@ namespace BloggersWebSite.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var category = cm.GetById(id);
+
+            if (category == null)
+            {
+                return NotFound(); // Kategori bulunamadıysa 404 hatası döndür
+            }
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Category category)
+        {
+            CategoryValidator validator = new CategoryValidator();
+            ValidationResult validationResult = validator.Validate(category);
+
+            if (validationResult.IsValid)
+            {
+                cm.Update(category);
+                return RedirectToAction("CategoryAdminIndex", "Category");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View(category);
+        }
+
         public IActionResult Delete(int id)
         {
             var category = cm.GetById(id);
             cm.Delete(category);
             return RedirectToAction("Index");
         }
+
+
     }
 }

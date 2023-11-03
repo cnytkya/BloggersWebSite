@@ -41,7 +41,7 @@
                                         @if (category.CategoryStatus)
                                         {
                                             <span class="badge badge-gradient-success">Aktif</span>
-                                            <a href="/Admin/Category/CategoryDelete/@category.CategoryId" id="DeleteBtn" onclick="return confirm('Silmek istediğinize emin misiniz')" class="btn btn-success">Pasif Yap</a>
+                                            <a href="/Admin/Category/CategoryAdminIndex/@category.CategoryId" id="DeleteBtn" onclick="return confirm('Silmek istediğinize emin misiniz')" class="btn btn-success">Pasif Yap</a>
                                         }
                                         else
                                         {
@@ -51,8 +51,9 @@
                                     </td>
 
                                     <td>
-                                        <a href="@Url.Action("Edit", "Category", new { id = category.CategoryId })" class="btn btn-info">Güncelle</a>
-                                        <a href="@Url.Action("Delete", "Category", new { id = category.CategoryId })" class="btn btn-danger">Sil</a>
+                                        <a href="@Url.Action("Update", "Category", new { id = category.CategoryId })" class="btn btn-info">Güncelle</a>
+                                        <a href="/Admin/Category/CategoryAdminIndex/@category.CategoryId" id="DeleteBtn" onclick="return confirm('Silmek istediğinize emin misiniz')" class="btn btn-danger">Sil</a>
+                                        @* <a href="@Url.Action("Delete", "Category", new { id = category.CategoryId })" class="btn btn-danger">Sil</a> *@
                                     </td>
 
 

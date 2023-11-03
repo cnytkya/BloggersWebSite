@@ -11,7 +11,7 @@ namespace BloggersWebSite.Areas.Admin.ViewComponents.Statistic
         {
             ViewBag.v1 = context.Admins.Where(x=>x.AdminId==1).Select(y => y.Name).FirstOrDefault();
             ViewBag.v2 = context.Admins.Where(x => x.AdminId == 1).Select(x => x.ImageUrl).FirstOrDefault();
-            ViewBag.v2 = context.Admins.Where(x => x.AdminId == 1).Select(x => x.Description).FirstOrDefault();
+            //ViewBag.v2 = context.Admins.Where(x => x.AdminId == 1).Select(x => x.Description).FirstOrDefault();
             return View();
         }
     }
