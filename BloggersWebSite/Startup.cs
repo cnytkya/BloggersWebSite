@@ -1,3 +1,5 @@
+using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +24,12 @@ namespace BloggersWebSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<AppDbContext>();
+            services.AddIdentity<AppUser, AppRole>(x =>{
+                x.Password.RequireUppercase = false;
+                x.Password.RequireNonAlphanumeric = false;
+
+            }).AddEntityFrameworkStores<AppDbContext>();
 
             //services.AddSession();
 

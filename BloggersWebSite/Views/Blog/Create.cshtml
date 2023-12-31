@@ -25,6 +25,11 @@
     @Html.DropDownListFor(x=> x.CategoryId,(List<SelectListItem>)ViewBag.cv, new{@class = "form-control"})
     <br />
     <br />
+    @Html.Label("Yazar")
+    @Html.HiddenFor(x => x.WriterId) <!-- Yazar ID'sini gizli alan olarak ekledik -->
+    @Html.DisplayFor(x => x.Writer.WriterName) <!-- Yazar adını gösteriyoruz, düzenleme yapmak isterseniz input kullanabilirsiniz -->
+    <br />
+    <br />
     <div class="form-group form-check">
         <label class="form-check-label">
             <input class="form-check-input" asp-for="BlogStatus" /> @Html.DisplayNameFor(model => model.BlogStatus)
@@ -38,8 +43,5 @@
     <br />
 
     <button class="btn btn-info">Kaydet</button>
-    <button asp-action="BlogListByWriter" class="btn btn-danger">İptal Et</button>
-
+    <a asp-action="BlogListByWriter" class="btn btn-danger">İptal Et</a> <!-- İptal Et butonunu link olarak düzeltilmiş. -->
 }
-
-
